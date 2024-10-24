@@ -4,7 +4,6 @@ import './comp.css';
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const history = useNavigate();
 
   // Check if token exists
   const isLoggedIn = !!localStorage.getItem('token');

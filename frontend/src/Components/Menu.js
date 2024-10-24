@@ -341,6 +341,7 @@ const fetchRecommendations = async () => {
                 onAddToCart={() => handleAddToCart(item)}
               />
             ))}
+            
           </div>
 
           {/* Italian category */}

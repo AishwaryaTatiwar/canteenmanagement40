@@ -1,7 +1,7 @@
 import React from 'react';
 import './CartDisplay.css';
 
-const CartDisplay = ({ Img, foodName, price, quantity, onQuantityChange }) => {
+const CartDisplay = ({ Img, foodName, price, quantity,category, onQuantityChange }) => {
   const handleDecrease = () => {
     if (quantity > 1) onQuantityChange(quantity - 1);
   };
@@ -22,6 +22,7 @@ const CartDisplay = ({ Img, foodName, price, quantity, onQuantityChange }) => {
         </div>
         <p>Price: Rs. {price}</p>
         <p>Subtotal: Rs. {price * quantity}</p>
+        <p>Category:{category}</p>
       </div>
     </div>
   );

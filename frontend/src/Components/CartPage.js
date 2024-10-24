@@ -113,6 +113,7 @@ const CartPage = () => {
               foodName={item.title} 
               price={item.price} 
               quantity={item.quantity}
+              category={item.category}
               onQuantityChange={(newQuantity) => handleQuantityChange(index, newQuantity)}
             />
           ))

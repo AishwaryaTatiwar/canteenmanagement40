@@ -161,24 +161,57 @@ function StaffPage() {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      const response = await axios.post("http://localhost:8283/api/staff", {
-        name: newStaff.name,
-        phone: newStaff.phone,
-        work: newStaff.work,
-      });
-
-      alert(response.data.message);
-      // Refetch staff list to update table
+      if (newStaff._id) {
+        // If _id exists, use PUT to update the existing staff member
+        const response = await axios.put(`http://localhost:8283/api/updatedstaff/staff/${newStaff._id}`, {
+          name: newStaff.name,
+          phone: newStaff.phone,
+          work: newStaff.work,
+        });
+        alert(response.data.message);
+      } else {
+        // If no _id, use POST to add a new staff member
+        const response = await axios.post("http://localhost:8283/api/staff", {
+          name: newStaff.name,
+          phone: newStaff.phone,
+          work: newStaff.work,
+        });
+        alert(response.data.message);
+      }
+  
+      // Refetch staff list to update the table
       const updatedStaff = await axios.get("http://localhost:8283/api/staff");
       setStaffList(updatedStaff.data);
+  
       // Close the popup after submission
       togglePopup();
     } catch (error) {
       alert(error.response?.data.message || "An error occurred");
     }
   };
-
+  const handleUpdateStaff = (id) => {
+    const itemToUpdate = staffList.find((newStaff) => newStaff._id === id);
+    setNewStaff(itemToUpdate); // Set the item details in the form
+    togglePopup(true);
+  };
+  const handleRemoveStaff = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8283/api/staff/${id}`);
+      setStaffList(staffList.filter((newStaff) => newStaff._id !== id));
+    } catch (error) {
+      console.error("There was an error removing staff:", error);
+    }
+  };
+  // const closePopup = () => {
+  //   togglePopup(false);
+  //   setNewStaff({
+  //     name: "",
+  //     phone: "",
+  //     work: "",
+  //   });
+  // };
   return (
     <div className="main-content">
       <div className="headerStaff">
@@ -208,8 +241,19 @@ function StaffPage() {
                   <td>{staff.phone}</td>
                   <td>{staff.work}</td>
                   <td>
-                    <button className="update-button">Update</button>
-                  </td>
+                  <button
+                    className="update-button"
+                    onClick={() => handleUpdateStaff(staff._id)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="remove-button"
+                    onClick={() => handleRemoveStaff(staff._id)}
+                  >
+                    Remove
+                  </button>
+                </td>
                 </tr>
               ))
             ) : (
@@ -225,7 +269,7 @@ function StaffPage() {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Add New Staff</h2>
+          <h2>{newStaff._id ? "Update Item" : "Add New Item"}</h2>
             <form onSubmit={handleSubmit}>
               <label>
                 Staff Name:
@@ -257,7 +301,9 @@ function StaffPage() {
                   required
                 />
               </label>
-              <button type="submit">Add Staff</button>{" "}
+              <button type="submit">
+                {newStaff._id ? "Update Staff" : "Add Staff"}
+              </button>
               <button type="button" onClick={togglePopup}>
                 Cancel
               </button>

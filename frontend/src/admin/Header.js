@@ -1,6 +1,6 @@
 import React, { useState,useEffect} from 'react';
 import './Header.css'; // Ensure the styles are imported
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 function Header() {
@@ -17,6 +17,14 @@ function Header() {
 
 const token = localStorage.getItem('token');
 const adminId = decodeJwt(token)?.adminID;
+const isLoggedIn = !!localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    
+    localStorage.removeItem('token'); // Remove token on logout
+    navigate('/'); // Redirect to login
+  };
 
 const fetchAdminData = async () => {
   try {
@@ -100,13 +108,20 @@ useEffect(() => {
           &times;
         </div> {/* Close Button */}
         <div className='navigate'>
-          <Link to="/" className='links'>Login or Signup</Link>
+        {!isLoggedIn ? (
+          <Link to="/" onClick={toggleSidebar}>Login or Signup</Link>
+        ) : (
+          <>
           <Link to="/Dashboard" className='links'>Dashboard</Link>
           <Link to="/orders" className='links'>Orders</Link>
           <Link to="/menu" className='links'>Menu</Link>
           <Link to="/users" className='links'>Users</Link>
           <Link to="/staff" className='links'>Staff</Link>
-          <Link to="/userquery" className='links'>User Queries</Link>
+          <Link to="/userquery" className='links'>User Support/Help</Link>
+          <button onClick={() => { toggleSidebar(); handleLogout(); }} >Logout</button>
+          </>
+        )}
+          
         </div>
       </div>
 

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Dashboardcards.css';
+ // Import necessary chart elements
+
+// Register the required components for Chart.js
+
 
 function DashboardCards() {
   const [dataCounts, setDataCounts] = useState({
@@ -13,10 +17,8 @@ function DashboardCards() {
   });
 
   useEffect(() => {
-    // Fetch the counts using axios
     async function fetchData() {
       try {
-        // Example API calls (replace with your actual API endpoints)
         const usersCount = await axios.get('http://localhost:8283/api/users/count');
         const dishesCount = await axios.get('http://localhost:8283/api/menu/count');
         const deliveredOrdersCount = await axios.get('http://localhost:8283/api/count/delivered');
@@ -25,8 +27,8 @@ function DashboardCards() {
         const staffs = await axios.get('http://localhost:8283/api/staff/count');
 
         const newCounts = {
-          menucount: dishesCount.data.menucount,          
-          usercount: usersCount.data.usercount,            
+          menucount: dishesCount.data.menucount,
+          usercount: usersCount.data.usercount,
           deliveredcount: deliveredOrdersCount.data.deliveredcount,
           pendingcount: pendingOrdersCount.data.pendingcount,
           cancelledcount: cancelledOrdersCount.data.cancelledcount,
@@ -51,6 +53,9 @@ function DashboardCards() {
     { icon: '👤', count: dataCounts.staffcount, title: 'Staff' },
   ];
 
+  // Pie chart data
+  
+
   return (
     <div className="dashboard-cards">
       {cardsData.map((card, index) => (
@@ -62,6 +67,8 @@ function DashboardCards() {
           </div>
         </div>
       ))}
+
+     
     </div>
   );
 }

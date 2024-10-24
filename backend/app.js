@@ -14,6 +14,7 @@ const orderUpdateRoute=require("./routes/orderUpdateRoute");
 const menuUpdateRoute=require("./routes/menuUpdateRoute");
 const fetchAdminDetails=require("./routes/fetchAdminDetails");
 const Menus=require("./models/menussModel");
+const staffUpdateRoute=require('./routes/staffUpdateRoute');
 
 const stripe = require("stripe")(
   "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
@@ -63,6 +64,7 @@ app.use("/api/orderEmail",emailRoutes);
 app.use("/api/updateorders",orderUpdateRoute);
 app.use("/api/updateditem",menuUpdateRoute);
 app.use("/api/admindetails",fetchAdminDetails);
+app.use("/api/updatedstaff",staffUpdateRoute);
 
 // /api/auth/register
 app.get("/", (req, res) => {
@@ -322,6 +324,23 @@ app.delete("/api/menu/:id", async (req, res) => {
     res.status(200).json({ message: "Menu item deleted successfully", deletedItem });
   } catch (error) {
     console.error("Error deleting the menu item:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+app.delete("/api/staff/:id", async (req, res) => {
+  try {
+    const staffId = req.params.id;
+
+    // Find and delete the menu item by ID
+    const deletedStaff = await Staff.findByIdAndDelete(staffId);
+
+    if (!deletedStaff) {
+      return res.status(404).json({ message: "Staff not found" });
+    }
+
+    res.status(200).json({ message: "Staff deleted successfully", deletedStaff });
+  } catch (error) {
+    console.error("Error deleting staff:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
