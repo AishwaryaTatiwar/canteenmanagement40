@@ -1,39 +1,52 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: orange;
-  }
-  
-  .search-bar {
-    padding: 8px;
-    border: none;
-    border-radius: 20px;
-    margin-left: 800px;
-  }
-  .toggle {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 20px;
-  }
-  .toggle span{
-    color: white;
-  }
-  .sidebar1{
-    position: fixed;
-    display: none;
-    top: 0;
-    left: -250px; /* Initially hidden off-screen */
-    width: 200px;
-    height: 100%;
-    background-color: orange;
-    color: white;
-    padding: 20px;
-    transition: all 0.3s ease-in-out; /* Smooth transition */
-    z-index: 200; /* Ensure it's above content but below the overlay */
-  }
-  
+  display: flex;
+  /* justify-content: space-between; */
+  gap:0px;
+  padding: 10px;
+  background-color: orange;
+}
+.headers{
+  margin-left: 1000px;
+  display: flex;
+  gap:16px;
+}
+
+.admin-heading{
+  color: aliceblue;
+  font-size: smaller;
+}
+.profile-button {
+  margin-top: 7.5px;
+  font-size: 20px;
+  margin-bottom: 1px;}
+
+.toggle {
+  font-size: 24px;
+  cursor: pointer;
+  color:white;
+  margin-right: 10px; /* Reduce margin to bring closer to heading */
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.notifi-button {
+  font-size: 30px;
+  margin-right: 0px; /* Reduce margin to bring closer to heading */
+}
+
+.sidebar1 {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: -250px; /* Initially hidden off-screen */
+  width: 200px;
+  height: 100%;
+  background-color: orange;
+  color: white;
+  padding: 20px;
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  z-index: 200; /* Ensure it's above content but below the overlay */
+}
   .sidebar1.open {
     display: flex;
     left: 0; /* Slide-in the sidebar when open */
@@ -63,6 +76,32 @@
     cursor: pointer;
   }
 
-.icon-button{
+
+.notifi-button{
   font-size: 30px;
+}
+.profile-dropdown {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50px; /* Adjust as needed */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10; /* Ensure it appears above other elements */
+  padding: 10px;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-info p {
+  margin: 5px 0; /* Adjust spacing */
+}
+.close-dropdown{
+  width: 30px;
+}
+.close-dropdown:hover{
+  cursor: pointer;
 }

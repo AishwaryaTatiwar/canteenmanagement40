@@ -7,6 +7,7 @@ function MenuPage() {
   const [menuItems, setMenuItems] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newItem, setNewItem] = useState({
+    _id: null,
     name: "",
     price: "",
     ingredients: "",
@@ -20,7 +21,6 @@ function MenuPage() {
       try {
         const response = await axios.get("http://localhost:8283/api/menu");
         setMenuItems(response.data); // Assuming response.data contains the menu items
-        
       } catch (error) {
         console.error("Error fetching menu items:", error);
       }
@@ -32,7 +32,7 @@ function MenuPage() {
   const handleAddItem = () => {
     setModalVisible(true);
     setNewItem({
-      id: null,
+      _id: null,
       name: "",
       price: "",
       ingredients: "",
@@ -55,26 +55,42 @@ function MenuPage() {
     }
 
     try {
-      // Send a POST request to add the new item to the database
-      const response = await axios.post("http://localhost:8283/api/menu", {
-        name: newItem.name,
-        image: newItem.image,
-        category: newItem.category,
-        price: newItem.price,
-        ingredients:newItem.ingredients,
-      });
-      alert(response.data.message);
-      const updatedmenu = await axios.get("http://localhost:8283/api/menu");
-      setMenuItems(updatedmenu.data); // Update menuItems with the newly added item
+      if (newItem._id) {
+        // If _id exists, update the item
+        const response = await axios.put(
+          `http://localhost:8283/api/updateditem/menu/${newItem._id}`,
+          {
+            name: newItem.name,
+            image: newItem.image,
+            category: newItem.category,
+            price: newItem.price,
+            ingredients: newItem.ingredients,
+          }
+        );
+        alert(response.data.message);
+      } else {
+        // Else, create a new item
+        const response = await axios.post("http://localhost:8283/api/menu", {
+          name: newItem.name,
+          image: newItem.image,
+          category: newItem.category,
+          price: newItem.price,
+          ingredients: newItem.ingredients,
+        });
+        alert(response.data.message);
+      }
+
+      const updatedMenu = await axios.get("http://localhost:8283/api/menu");
+      setMenuItems(updatedMenu.data); // Update menuItems with the newly added or updated item
       closeModal(); // Close the modal after successful submission
     } catch (error) {
-      console.error("There was an error adding the item:", error);
+      console.error("There was an error adding/updating the item:", error);
     }
   };
 
   const handleUpdateItem = (id) => {
-    const itemToUpdate = menuItems.find((item) => item.id === id);
-    setNewItem(itemToUpdate);
+    const itemToUpdate = menuItems.find((item) => item._id === id);
+    setNewItem(itemToUpdate); // Set the item details in the form
     setModalVisible(true);
   };
 
@@ -82,8 +98,13 @@ function MenuPage() {
     setSelectedCategory(event.target.value);
   };
 
-  const handleRemoveItem = (id) => {
-    setMenuItems(menuItems.filter((item) => item.id !== id));
+  const handleRemoveItem = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8283/api/menu/${id}`);
+      setMenuItems(menuItems.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error("There was an error removing the item:", error);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -94,7 +115,7 @@ function MenuPage() {
   const closeModal = () => {
     setModalVisible(false);
     setNewItem({
-      id: null,
+      _id: null,
       name: "",
       price: "",
       ingredients: "",
@@ -121,7 +142,6 @@ function MenuPage() {
             <option value="North Indian">North Indian</option>
             <option value="South Indian">South Indian</option>
             <option value="Beverages">Beverages</option>
-            <option value="Coldrink">Coldrink</option>
             <option value="Italian">Italian</option>
           </select>
         </div>
@@ -130,7 +150,7 @@ function MenuPage() {
       {modalVisible && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>{newItem.id ? "Update Item" : "Add New Item"}</h2>
+            <h2>{newItem._id ? "Update Item" : "Add New Item"}</h2>
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -176,7 +196,7 @@ function MenuPage() {
                 <option value="Italian">Italian</option>
               </select>
               <button type="submit">
-                {newItem.id ? "Update Item" : "Add Item"}
+                {newItem._id ? "Update Item" : "Add Item"}
               </button>
               <button type="button" onClick={closeModal}>
                 Cancel
@@ -201,7 +221,7 @@ function MenuPage() {
           {menuItems
             .filter((item) => item.category === selectedCategory)
             .map((item, index) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>
@@ -216,13 +236,13 @@ function MenuPage() {
                 <td>
                   <button
                     className="update-button"
-                    onClick={() => handleUpdateItem(item.id)}
+                    onClick={() => handleUpdateItem(item._id)}
                   >
                     Update
                   </button>
                   <button
                     className="remove-button"
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item._id)}
                   >
                     Remove
                   </button>

@@ -11,6 +11,8 @@ const Orders=require("./models/ordersModel");
 const adminauthRoutes=require("./routes/adminauthRoutes");
 const emailRoutes=require("./routes/emailRoutes");
 const orderUpdateRoute=require("./routes/orderUpdateRoute");
+const menuUpdateRoute=require("./routes/menuUpdateRoute");
+const fetchAdminDetails=require("./routes/fetchAdminDetails");
 const Menus=require("./models/menussModel");
 
 const stripe = require("stripe")(
@@ -59,6 +61,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/adminauth",adminauthRoutes);
 app.use("/api/orderEmail",emailRoutes);
 app.use("/api/updateorders",orderUpdateRoute);
+app.use("/api/updateditem",menuUpdateRoute);
+app.use("/api/admindetails",fetchAdminDetails);
 
 // /api/auth/register
 app.get("/", (req, res) => {
@@ -304,6 +308,24 @@ app.get('/api/menu/count', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+app.delete("/api/menu/:id", async (req, res) => {
+  try {
+    const menuItemId = req.params.id;
+
+    // Find and delete the menu item by ID
+    const deletedItem = await Menus.findByIdAndDelete(menuItemId);
+
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Menu item not found" });
+    }
+
+    res.status(200).json({ message: "Menu item deleted successfully", deletedItem });
+  } catch (error) {
+    console.error("Error deleting the menu item:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 // Start server
 //listen
