@@ -1,0 +1,409 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  /*Navbar css*/
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+  }
+  
+  .site-name a {
+    text-decoration: none;
+    color: orange;
+    font-size: 26px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .logout-btn{
+    background-color: orange;
+    border-radius: 10px;
+    height:15px;
+    margin-top: 0;
+    font-size: 12px;
+    padding-bottom:25px ;
+  }
+
+  .nav-links button:hover{
+    background-color:white;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+  }
+  
+  .nav-links a:hover {
+    color: orange;
+  }
+  
+  .nav-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 30px;
+  }
+  
+/* banner */
+.banner{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:url(./Images/bg.jpg);
+  background-size: cover;
+}
+.banner .content{
+  max-width: 80%;
+  text-align: center;
+}
+.banner .content h2{
+  font-size: 3em;
+  color: #fff;
+}
+.banner .content p{
+  font-size: 0.9em;
+  color: #fff;
+}
+.content button{
+  font-size: 1em;
+  color: black;
+  background-color: orange;
+  display: inline-block;
+  padding: 10px 10px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: 0.5s;
+  width: 200px;
+  border-radius: 20px;
+}
+.content button:hover{
+  letter-spacing: 4px;
+}
+/* Typing Effect */
+.typing-effect {
+  white-space: nowrap;/*For not allowing text on next line*/
+  overflow: hidden;
+  border-right: 3px solid; /* Cursor effect */
+  width: 0; /* Initial width to animate */
+  animation: typing 3.5s steps(40, end) forwards, blink 0.75s step-end 3.5s;
+}
+.mob-typing-effect{
+  display: none;
+}
+
+/* Typing animation */
+@keyframes typing {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%; /* Full width */
+  }
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  from, to {
+      border-color: transparent;
+  }
+  50% {
+      border-color: white;
+  }
+}
+
+/* aboutus */
+.row{
+  height: 100%;
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  text-align: start;
+  margin-bottom: 30px;
+}
+.row.col{
+  width:25%;
+}
+
+.about{
+  padding: 100px;
+}
+.row{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.row .col50{
+  position: relative;
+  width: 48%;
+}
+.aboutus-text{
+text-align: justify;
+}
+.row .col50 .imgBx img{
+  height: auto;
+  background: cover;
+}
+.titleText{
+  color: #111;
+  font-size: 2em;
+  font-weight: 300;
+}
+.titleText span{
+  color: orange;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+/* top sellers and top-reviews */
+  .top-sellers{
+    margin-left: 500px;
+  }
+  .container3 {
+    display: flex;
+    overflow-x: scroll;  /* Allows horizontal scrolling */
+    padding: 10px;
+    white-space: nowrap; /* Prevents wrapping of elements */
+    gap: 20px;           /* Adds spacing between the items */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer and Edge */
+    margin-bottom: 150px;
+  }
+  
+  .images {
+    flex: 0 0 auto;     /* Prevents the items from shrinking */
+    width: 200px;       /* Set a fixed width for each image block */
+    text-align: center; /* Centers text and image */
+  }
+  
+  .images img {
+    width: 100%;        /* Makes images responsive to their container */
+    height: 220px;
+    border-radius: 10px; /* Optional: adds rounded corners */
+  }
+  .images img:hover{
+    width:110%;
+    height: 250px;
+  }
+
+/* contactUs section */
+.contact{
+    background: url(./Images/bg3.jpg);
+    background-size: cover;
+    padding-bottom: 55px;
+}
+.contactForm{
+    padding: 55px 40px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    background:#fff;
+    box-shadow: 0 15px 50px rgb(0 0 0 / 30%);
+    max-width: 300px;
+    margin-left: 100px;
+}
+.contactForm h3{
+    color: #111;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.contactForm .inputBox{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.contactForm .inputBox input,
+.contactForm .inputBox textarea
+{
+    width: 100%;
+    border: 1px solid #555;
+    padding: 10px;
+    color: #111;
+    outline: none;
+    font-size: 1em;
+    font-weight: 300;
+    resize: none;
+}
+.contactForm .inputBox input[type="submit"]{
+    font-size: 1em;
+    color: #fff;
+    background: orange;
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.5s;
+    max-width: 100px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+.title{
+  margin-left: 500px;
+}
+
+/* copyright */
+.copyright{
+  padding: 20px 40px;
+  border-top: 1px solid orange;
+  text-align: center;
+}
+.copyright p{
+  color: #333;
+}
+
+/* -----------------------------mobile-view-css------------------------- */
+
+/* Sidebar styles mobile view*/
+.sidebar {
+  /* display: none; */
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  z-index: 1;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: orange;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+@media (max-width: 540px) {
+  .nav-links {
+    display: none; /* Hide main links in mobile view */
+  }
+
+  .nav-toggle {
+    display: flex; /* Show hamburger menu */
+    align-self: flex-end;
+  }
+}
+@media(max-width:991px){
+  section{
+    padding: 30px;
+}
+.banner .content h2{
+    font-size: 3em;
+    color: #fff;
+}
+.about{
+     padding:30px;
+}
+.row{
+    flex-direction: column;
+}
+.row .col50 {
+    position: relative;
+    width: 100%;
+}
+.row .col50 .imgBx{
+    margin-top: 20px;
+}
+.title{
+    margin-bottom: 30px;
+    text-align: center;
+}
+.menu .content .box{
+    margin: 10px;
+}
+.titleText {
+    color: #111;
+    font-size: 1.8em;
+    line-height: 1.5em;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+.testimon .content .box{
+    margin: 12px;
+    padding: 20px;
+}
+.testimon{
+  margin:0px;
+}
+.contactForm{
+    margin-left:0px;
+}
+.top-sellers{
+  margin-left: 0;
+}
+.title{
+  margin-left: 0;
+}
+.row .col50 .imgBx img{
+  width:100%;
+}
+.typing-effect {
+  display: none; /* Hide desktop typing effect on mobile */
+}
+.banner .content h2{
+  font-size: 2em;
+  color: #fff;
+}
+.mob-typing-effect {
+  display: inline-block; /* Show mobile typing effect */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  border-right: 3px solid; /* Cursor effect */
+  width: auto; /* Use auto width for dynamic text length */
+  max-width: 100%; /* Ensure it does not exceed screen width */
+  animation: typing-mobile 3.5s steps(30, end) forwards, blink-mobile 0.75s step-end infinite;
+}
+
+@keyframes typing-mobile {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%; /* Dynamically adjust based on text size */
+  }
+}
+
+@keyframes blink-mobile {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
+}

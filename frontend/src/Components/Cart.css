@@ -1,0 +1,83 @@
+  .cart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: orange;
+    margin: 40px;
+    border-radius:20%;
+    padding: 10px 20px;
+    height: 10px;
+    width: 100%;
+    max-width: 90%;
+    margin: 20px auto;
+    color: white;
+  }
+  
+  .cart-left {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .cart-icon-wrapper {
+    position: relative;
+    background-color: white; /* White background for the circle */
+    border-radius: 50%; /* Make it round */
+    padding: 10px; /* Space around the cart icon */
+    margin-right: 10px;
+  }
+  
+  .cart-icon {
+    width: 35px;
+    height: 35px;
+    color: black; /* Black cart icon */
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 6px; /* Slightly smaller padding */
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+  .cart-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: white; /* Whitish text */
+    margin-right: 20px;
+  }
+  
+  /* Styling for the Order Now button inside the yellow container */
+  .order-now-button {
+    padding: 10px 20px;
+    background-color: white; /* White background */
+    color: orange; /* Orange text */
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 200px; /* Adjust width to fit content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin-right: 20px;;
+  }
+  
+  .order-now-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Make sure button stays aligned in the same row */
+  .last {
+    display: flex;
+    /* padding: 20px; */
+    background-color: orange;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  

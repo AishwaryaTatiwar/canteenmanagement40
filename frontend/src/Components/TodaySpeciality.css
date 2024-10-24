@@ -1,0 +1,272 @@
+/* .special-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffa500;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%;
+  margin: 20px auto;
+  color: white;
+  height: 200px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.special-text {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.special-text h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.special-text p {
+  font-size: 14px;
+}
+
+.special-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.special-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.image-caption {
+  margin-top: 10px;
+  background-color: white;
+  padding: 10px;
+  width: 130px;
+  height: 40px;
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.image-caption p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.arrow-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.icon-arrow {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.special-card:hover .icon-arrow {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .special-card {
+    flex-direction: row;
+    height: auto;
+  }
+
+  .special-text {
+    display: block;
+  }
+
+  .special-image img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .image-caption {
+    font-size: 12px;
+    padding: 5px;
+    width: auto;
+  }
+
+  .icon-arrow {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .special-card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .special-text {
+    display: none;
+  }
+
+  .special-image img {
+    width: 100%;
+    height: 120px;
+  }
+
+  .image-caption {
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .icon-arrow {
+    font-size: 18px;
+  }
+
+  .extra-text {
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+  }
+} */
+
+.special-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffa500;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  margin: 20px auto;
+  color: white;
+  height: 200px; /* Adjusted to accommodate larger image */
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  justify-content: space-between; /* Ensures space between content and image */
+}
+
+.special-text {
+  flex: 1;
+  margin-right: 0;
+  text-align: justify;
+}
+
+.special-text h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.special-text p {
+  font-size: 16px;
+  max-width: 80%;
+  text-align: justify;
+}
+
+.special-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.special-image img {
+  width: 250px; /* Increased image width */
+  height: 160px; /* Increased image height */
+  border-radius: 10px;
+}
+
+.image-caption {
+  margin-top:10px;
+  display: flex;
+  gap:10px;
+}
+
+.image-caption p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.arrow-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px; /* Adjusted width to fit the new image size */
+  margin-top: 20px; /* Add some space between arrows and the image */
+}
+
+.icon-arrow {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 32px; /* Increased size to match larger image */
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.special-card:hover .icon-arrow {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .special-card {
+    flex-direction: row;
+    height: auto;
+  }
+
+  .special-text {
+    display: block;
+  }
+
+  .special-image img {
+    width: 200px; /* Adjusted width for medium screens */
+    height: 150px; /* Adjusted height for medium screens */
+  }
+
+  .image-caption {
+    font-size: 12px;
+    padding: 5px;
+    width: auto;
+  }
+
+  .icon-arrow {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .special-card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .special-text {
+    display: none;
+  }
+
+  .special-image img {
+    width: 100%;
+    height: 180px; /* Increased height for mobile */
+  }
+
+  .image-caption {
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .icon-arrow {
+    font-size: 20px;
+  }
+
+  .extra-text {
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+  }
+}

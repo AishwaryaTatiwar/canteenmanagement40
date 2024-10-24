@@ -1,0 +1,182 @@
+/* General layout */
+.profile-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* Profile Banner Section */
+.profile-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, orange, #ffcc00);
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-details {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.profile-name {
+    margin-left: 20px;
+    align-items: center;
+    font-size: 2.5em;
+    color: white;
+}
+
+.edit-profile-btn {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: 120px;
+}
+
+.edit-profile-btn:hover {
+    background-color: #ddd;
+}
+
+/* Profile and Activity Box */
+.profile-content {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.profile-info-activity {
+    background-color: white;
+    width: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.profile-info-activity button{
+    background-color: #fff;
+}
+
+.profile-info-activity h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid orange;
+    padding-bottom: 5px;
+}
+
+.profile-info-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-info-activity li {
+    margin-bottom: 10px;
+}
+
+.profile-info-activity li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+
+.profile-info-activity li button{
+    height:10px;
+    font-size: 15px;
+    padding-top: 1px;
+}
+.profile-info-activity li button:hover{
+    background-color: #fff;
+    color:orange;
+}
+.info-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 20px;
+    flex-grow: 1;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.info-box h3 {
+    color: orange;
+    margin-bottom: 20px;
+}
+
+.info-box p {
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+.history-container {
+    padding: 20px;
+    background-color: #f7f7f7;
+  }
+  
+  .history-title {
+    color: orange;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .history-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+    gap: 5px;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .history-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+    gap: 12px;
+    background-color: white;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feedback-btn {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width:120px;
+  }
+  
+  .feedback-btn:hover {
+    background-color: #e69500;
+  }
+  
+  .total-price {
+    grid-column: span 5;
+    text-align: right;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .no-orders {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+  }
+  

@@ -1,0 +1,11 @@
+.canteen-management {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  

@@ -1,0 +1,117 @@
+/* Base styling for the payment page container */
+.payment-page {
+    
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+ padding-top: 100px;
+}
+
+/* Header styling */
+.payment-page h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Payment options styling */
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.payment-option {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #555;
+}
+
+.payment-option:hover {
+  background-color: #e0f7fa;
+}
+
+.payment-option.active {
+  background-color: #2874f0;
+  color: white;
+  font-weight: bold;
+}
+
+/* Form labels and input fields */
+.payment-form label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+  color: #333;
+}
+
+.payment-form input,
+.payment-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+/* Card input and QR code placeholder styling */
+.card-element,
+.qr-code-placeholder {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #888;
+}
+
+.qr-code-placeholder {
+  border-style: dashed;
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+/* Submit button styling */
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #2874f0;
+  color: white;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.submit-button:hover {
+  background-color: #1e5bbf;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+  .payment-page {
+    padding: 15px;
+  }
+  .payment-options {
+    flex-direction: column;
+  }
+  .payment-option {
+    margin-bottom: 10px;
+  }
+}
+
+/* npm install @stripe/react-stripe-js @stripe/stripe-js */

@@ -1,0 +1,113 @@
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+  padding: 20px;
+  height: 100vh; 
+  width: 90%;
+}
+.headerStaff{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* background-color: #ffa500; */
+  background-color: #ffffff;
+  color:  #ffa500;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+.add-staff-button{
+  margin-right: 70px;
+  background-color: white;
+  color: #ffa500;
+  border: 1px solid #ffa500;
+  border-radius: 5px;
+  padding: 5px 15px;
+  cursor: pointer;
+  max-width: 190px;
+  max-height: 70px;
+}
+.staff-list {
+  flex-grow: 1; 
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%; 
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  padding: 10px;
+  background-color: #ffa500;
+  color: white;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.update-button {
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.update-button:hover {
+  background-color: #ff8000;
+}
+.popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+.popup-content{
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 300px; /* Adjust width as needed */
+  text-align: center; /* Center text */
+}
+.popup-content input,
+.popup-content select{
+  display: block;
+  margin: 10px auto; /* Center input fields */
+  padding: 10px;
+  width: calc(100% - 20px); /* Full width with padding */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.popup-content button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffa500; /* Button color */
+  color: white;
+  cursor: pointer;
+}
+.popup-content button:hover {
+  background-color: #ff8000; /* Button hover color */
+}

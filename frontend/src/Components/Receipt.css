@@ -1,0 +1,111 @@
+.receipt-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .receipt-box {
+    width: 800px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+
+  }
+  
+  .receipt-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    padding: 10px;
+  }
+  
+  .receipt-title {
+    font-size: 34px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .receipt-subtitle {
+    font-size: 34px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .highlight {
+    color: #ff9900;
+  }
+  
+  .section {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .section h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .order-summary {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .order-summary th,
+  .order-summary td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .total-price {
+    text-align: right;
+    margin-top: 10px;
+  }
+  
+  .receipt-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: orange;
+    display: flex;
+    gap:5px;
+  }
+  .receipt-footer p{
+    font-size: 15px;
+    color: #ddd;
+  }
+  .cancel-button {
+    background-color: white;
+    color: black;
+    height:30px;
+    width:180px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .cancel-button:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .download-button {
+    background-color: white;
+    color: black;
+    height:30px;
+    width:180px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .download-button:hover {
+    background-color: orange;
+    color: white;
+  }
+  
