@@ -141,7 +141,7 @@ function MenuPage() {
           >
             <option value="North Indian">North Indian</option>
             <option value="South Indian">South Indian</option>
-            <option value="Beverages">Beverages</option>
+            <option value="Beverages">Chinese</option>
             <option value="Italian">Italian</option>
           </select>
         </div>
@@ -191,8 +191,7 @@ function MenuPage() {
               >
                 <option value="North Indian">North Indian</option>
                 <option value="South Indian">South Indian</option>
-                <option value="Beverages">Beverages</option>
-                <option value="Coldrink">Coldrink</option>
+                <option value="Beverages">Chinese</option>
                 <option value="Italian">Italian</option>
               </select>
               <button type="submit">

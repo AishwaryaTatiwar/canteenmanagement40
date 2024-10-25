@@ -5,12 +5,11 @@
   }
   
   .receipt-box {
-    width: 800px;
+    width: 700px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
-
   }
   
   .receipt-header {
@@ -73,7 +72,7 @@
   }
   .receipt-footer p{
     font-size: 15px;
-    color: #ddd;
+    color: white;
   }
   .cancel-button {
     background-color: white;

@@ -6,8 +6,13 @@ function ProfilePage() {
     const [activeTab, setActiveTab] = useState('personal-info');
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
-    const [userOrders, setUserOrders] = useState([]); // Initialize as an empty array
+    const [userOrders, setUserOrders] = useState([]); 
+    const [userReviews, setUserReviews] = useState([]); // State to store reviews
     const [error, setError] = useState(null);
+    const [showReviewPopup, setShowReviewPopup] = useState(false); 
+    const [selectedOrder, setSelectedOrder] = useState(null); 
+    const [feedbackMessage, setFeedbackMessage] = useState(''); 
+    const [rating, setRating] = useState(0); 
 
     const decodeJwt = (token) => {
         if (!token) return null;
@@ -20,6 +25,9 @@ function ProfilePage() {
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
+        if (tab === 'reviews') {
+            fetchUserReviews(userEmail); // Fetch reviews when the "Reviews" tab is clicked
+        }
     };
 
     const fetchUserData = async () => {
@@ -53,7 +61,7 @@ function ProfilePage() {
 
             const data = response.data;
             if (data.success) {
-                setUserOrders(data.data); // Correctly setting orders data
+                setUserOrders(data.data); 
             } else {
                 setError(data.message);
             }
@@ -63,12 +71,67 @@ function ProfilePage() {
         }
     };
 
+    const fetchUserReviews = async (userEmail) => {
+        try {
+            const response = await axios.get(`http://localhost:8283/api/getreview/userreviews/${userEmail}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+            const data = response.data;
+            if (data.success) {
+                setUserReviews(data.data); // Save the fetched reviews in state
+            } else {
+                setError(data.message);
+            }
+        } catch (error) {
+            console.error('Error fetching user reviews:', error);
+            setError('Failed to fetch user reviews');
+        }
+    };
+
     useEffect(() => {
         fetchUserData();
         if (userEmail) {
-            fetchUserOrders(userEmail); // Only fetch orders after email is set
+            fetchUserOrders(userEmail); 
+            fetchUserReviews(userEmail);
         }
     }, [userEmail]);
+
+    const handleGiveReview = (order) => {
+        setSelectedOrder(order);
+        setShowReviewPopup(true); // Show the popup when "Give review" is clicked
+    };
+
+    const handleSubmitReview = async () => {
+        // Prepare review data
+        const reviewData = {
+            orderID: selectedOrder.orderID,
+            userEmail: userEmail, 
+            items: selectedOrder.cartItems.map(item => ({ title: item.title })),
+            feedbackMessage: feedbackMessage,
+            rating: rating,
+        };
+    
+        try {
+            // Send POST request to save review
+            const response = await axios.post('http://localhost:8283/api/review/userreview', reviewData);
+    
+            if (response.data.success) {
+                alert("Review submitted successfully");
+            } else {
+                console.error("Review submission failed:", response.data.message);
+            }
+        } catch (error) {
+            console.error("Error submitting review:", error);
+        }
+    
+        // Reset after submitting
+        setShowReviewPopup(false);
+        setFeedbackMessage('');
+        setRating(0);
+    };
 
     return (
         <div className="profile-page">
@@ -87,15 +150,12 @@ function ProfilePage() {
                     <h3>PROFILE</h3>
                     <ul>
                         <li><button className={activeTab === 'personal-info' ? 'active' : ''} onClick={() => handleTabClick('personal-info')}>Personal Info</button></li>
-                        <li><button className={activeTab === 'cart' ? 'active' : ''} onClick={() => handleTabClick('cart')}>Cart</button></li>
                         <li><button className={activeTab === 'favourites' ? 'active' : ''} onClick={() => handleTabClick('favourites')}>Favourites</button></li>
-                        <li><button className={activeTab === 'notifications' ? 'active' : ''} onClick={() => handleTabClick('notifications')}>Notifications</button></li>
                     </ul>
                     <h3>ACTIVITY</h3>
                     <ul>
                         <li><button className={activeTab === 'order-history' ? 'active' : ''} onClick={() => handleTabClick('order-history')}>Order History</button></li>
                         <li><button className={activeTab === 'reviews' ? 'active' : ''} onClick={() => handleTabClick('reviews')}>Reviews</button></li>
-                        <li><button className={activeTab === 'settings' ? 'active' : ''} onClick={() => handleTabClick('settings')}>Settings</button></li>
                     </ul>
                 </div>
 
@@ -108,38 +168,97 @@ function ProfilePage() {
                         </div>
                     )}
 
-{activeTab === 'order-history' && (
-    <div className="history-container">
-        <h2 className="history-title">Order History</h2>
-        {userOrders.length > 0 ? (
-            <div className="history-header">
-                <span>OrderID:</span>
-                <span>Items:</span>
-                <span>Quantity:</span>
-                <span>Status:</span>
-                <span></span> {/* For the "Give Feedback" button */}
-            </div>
-        ) : (
-            <p>You have not placed any orders.</p>
-        )}
+                    {activeTab === 'order-history' && (
+                        <div className="history-container">
+                            <h2 className="history-title">Order History</h2>
+                            {userOrders.length > 0 ? (
+                                <div className="history-header">
+                                    <span>OrderID:</span>
+                                    <span>Items:</span>
+                                    <span>Quantity:</span>
+                                    <span>Status:</span>
+                                    <span></span>
+                                </div>
+                            ) : (
+                                <p>You have not placed any orders.</p>
+                            )}
 
-        {userOrders.map(order => (
-            <div key={order.orderID} className="history-item">
-                <span>{order.orderID}</span>
-                <span>{order.cartItems.map(item => item.title).join(', ')}</span>
-                <span>{order.cartItems.map(item => item.quantity).join(', ')}</span>
-                <span>{order.orderStatus}</span>
-                <button className="feedback-btn">Give review</button>
-                <div className="total-price">
-                    <span>Total price:</span>
-                    <span>{order.totalPrice}</span>
+                            {userOrders.map(order => (
+                                <div key={order.orderID} className="history-item">
+                                    <span>{order.orderID}</span>
+                                    <span>{order.cartItems.map(item => item.title).join(', ')}</span>
+                                    <span>{order.cartItems.map(item => item.quantity).join(', ')}</span>
+                                    <span>{order.orderStatus}</span>
+
+                                    {order.orderStatus === 'delivered' && (
+                                        <button className="feedback-btn" onClick={() => handleGiveReview(order)}>Give review</button>
+                                    )}
+
+                                    <div className="total-price">
+                                        <span>Total price:</span>
+                                        <span>{order.totalPrice}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+{activeTab === 'reviews' && (
+    <div className="reviews-container">
+        {/* <h2 className="reviews-title">Your Reviews</h2> */}
+        {userReviews && userReviews.length > 0 ? (
+            userReviews.map(review => (
+                <div key={review._id} className="review-card">
+                    <div className="review-header">
+                        <h4 className="order-id">Order ID: {review.orderID}</h4>
+                    </div>
+                    <div className="review-body">
+                        <p><strong>Item:</strong> {review.items.map(item => item.title).join(', ')}</p>
+                        <p><strong>Rating:</strong> {review.rating} stars</p>
+                        <p><strong>Email:</strong> {userEmail}</p>
+                        <p><strong>Feedback:</strong> {review.feedbackMessage}</p>
+                    </div>
                 </div>
-            </div>
-        ))}
+            ))
+        ) : (
+            <p>You haven't left any reviews yet.</p>
+        )}
     </div>
 )}
-
                 </div>
+
+                {showReviewPopup && (
+                    <div className="review-popup">
+                        <div className="review-popup-content">
+                            <h3>Leave a Review</h3>
+                            <p><strong>Order ID:</strong> {selectedOrder?.orderID}</p>
+                            <p><strong>Items:</strong> {selectedOrder?.cartItems.map(item => item.title).join(', ')}</p>
+                            <p><strong>Email:</strong>{userEmail}</p>
+
+                            <textarea
+                                value={feedbackMessage}
+                                onChange={(e) => setFeedbackMessage(e.target.value)}
+                                placeholder="Write your review here..."
+                            />
+
+                            <div className="rating-section">
+                                <label>Rating:</label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="5"
+                                    value={rating}
+                                    onChange={(e) => setRating(Number(e.target.value))}
+                                />
+                            </div>
+
+                            <div className="popup-buttons">
+                                <button onClick={handleSubmitReview}>Submit</button>
+                                <button onClick={() => setShowReviewPopup(false)}>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

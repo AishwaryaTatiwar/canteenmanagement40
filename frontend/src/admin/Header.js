@@ -85,8 +85,6 @@ useEffect(() => {
         <h4 className='admin-heading'>Smart Canteen Admin</h4>
         </div>
         
-        
-        
         {/* Profile Dropdown */}
         {isProfileDropdownOpen && (
           <div className="profile-dropdown">
@@ -95,8 +93,8 @@ useEffect(() => {
             </button>
             
             <div className="profile-info">
-              <p>Name:{adminName}</p>
-              <p>Email:{adminEmail}</p>
+              <p>Name:{adminName || "xyz"}</p>
+              <p>Email:{adminEmail || "xyz@gmail.com"}</p>
             </div>
           </div>
         )}

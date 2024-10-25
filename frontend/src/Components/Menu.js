@@ -25,9 +25,9 @@
 // const userId = decodeJwt(token)?.userID;
 // const fetchUserName = async () => {
 //   try {
-//       const response = await axios.get(`http://localhost:8283/api/user/${userId}`, {
+//       const response = await axios.get(http://localhost:8283/api/user/${userId}, {
 //           headers: {
-//               Authorization: `Bearer ${localStorage.getItem("token")}`, // Include your token in the request
+//               Authorization: Bearer ${localStorage.getItem("token")}, // Include your token in the request
 //           },
 //       });
 
@@ -198,6 +198,7 @@ function Menu() {
   const navigate = useNavigate(); // Hook to navigate programmatically
   const [userName, setUserName] = useState(''); // State for storing the user's name
   const [error, setError] = useState(null); // State for handling errors
+  const [menuItems, setMenuItems] = useState([]);
   const decodeJwt = (token) => {
     if (!token) return null;
     const payload = token.split('.')[1];
@@ -230,7 +231,7 @@ const fetchUserName = async () => {
 const fetchRecommendations = async () => {
     try {
       const response = await axios.post("http://localhost:5000/recommend", {
-        orderData: cartItems.map(item => ({ title: item.title })), // Assuming `item.title` is relevant for recommendations
+        orderData: cartItems.map(item => ({ title: item.title })), // Assuming item.title is relevant for recommendations
       });
 
       if (response.data) {
@@ -261,6 +262,19 @@ const fetchRecommendations = async () => {
   const handleAddToCart = (item) => {
     setCartItems([...cartItems, item]);
   };
+
+  // useEffect(() => {
+  //   const fetchMenuItems = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:8283/api/menu");
+  //       setMenuItems(response.data); // Assuming response.data contains the menu items
+  //     } catch (error) {
+  //       console.error("Error fetching menu items:", error);
+  //     }
+  //   };
+
+  //   fetchMenuItems();
+  // }, []);
 
   // Navigate to CartPage with the cart items
   const handleOrderNow = () => {
@@ -318,7 +332,7 @@ const fetchRecommendations = async () => {
                 <MenuComponent
                   key={index}
                   title={item}
-                  // Assuming you have a way to get the item's price and url from the `Food` data or an API
+                  // Assuming you have a way to get the item's price and url from the Food data or an API
                   price={Food.find(foodItem => foodItem.title === item)?.price || "N/A"} 
                   url={Food.find(foodItem => foodItem.title === item)?.url || "#"} 
                   onAddToCart={() => handleAddToCart({ title: item })}
@@ -397,6 +411,4 @@ const fetchRecommendations = async () => {
     </div>
   );
 }
-
 export default Menu;
-
