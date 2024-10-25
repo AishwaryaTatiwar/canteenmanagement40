@@ -18,7 +18,8 @@ const staffUpdateRoute=require('./routes/staffUpdateRoute');
 const cancelOrder=require('./routes/cancelOrder');
 const userReviewRoute=require('./routes/userReviewRoute');
 const fetchUserReviews=require('./routes/fetchUserReviews');
-
+const contactForm=require('./routes/contactFormRoute');
+const fetchContacts=require('./routes/fetchContacts');
 
 const stripe = require("stripe")(
   "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
@@ -72,7 +73,8 @@ app.use("/api/updatedstaff",staffUpdateRoute);
 app.use("/api/delete",cancelOrder);//order delete route
 app.use("/api/review",userReviewRoute);//order delete route
 app.use("/api/getreview",fetchUserReviews);
-
+app.use("/api/usupport",contactForm);
+app.use("/api/contactadmin",fetchContacts);
 // /api/auth/register
 app.get("/", (req, res) => {
   res.send("hello world! Response from server");
