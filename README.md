@@ -36,7 +36,7 @@ The **Smart Canteen Management System** is a web-based platform designed to stre
    cd smart-canteen-management
 2. **npm install**
 3. **MONGODB_URI=<your-mongodb-uri>**
-4.**NODEMAILER_USER=<your-email>**
+4. **NODEMAILER_USER=<your-email>**
 5. **NODEMAILER_PASS=<your-password>**
 6. **npm start**
 
