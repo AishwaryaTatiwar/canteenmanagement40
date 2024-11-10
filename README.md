@@ -34,9 +34,9 @@ The **Smart Canteen Management System** is a web-based platform designed to stre
    ```bash
    git clone https://github.com/yourusername/smart-canteen-management.git
    cd smart-canteen-management
-2.npm install
-3.MONGODB_URI=<your-mongodb-uri>
+2. **npm install**
+3. **MONGODB_URI=<your-mongodb-uri>
   NODEMAILER_USER=<your-email>
-  NODEMAILER_PASS=<your-password>
-3.npm start
+  NODEMAILER_PASS=<your-password>**
+4. **npm start**
 
