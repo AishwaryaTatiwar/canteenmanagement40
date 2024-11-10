@@ -10,6 +10,7 @@ The **Smart Canteen Management System** is a web-based platform designed to stre
   - Track order status (pending, in preparation, delivered, cancelled)
   - Access order history with options to leave feedback for delivered orders
   - Profile page with personal info, order history, and favorite items
+  - Recommendation system which gives personalized recommendations for next order
   
 - **Admin Module**:
   - Manage menu items, user profiles, and staff information
