@@ -16,7 +16,8 @@ const fetchAdminDetails=require("./routes/fetchAdminDetails");
 const Menus=require("./models/menussModel");
 const staffUpdateRoute=require('./routes/staffUpdateRoute');
 const cancelOrder=require('./routes/cancelOrder');
-
+const userReviewRoute=require('./routes/userReviewRoute');
+const fetchUserReviews=require('./routes/fetchUserReviews');
 const stripe = require("stripe")(
   "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
 ); //for stripe
@@ -67,6 +68,8 @@ app.use("/api/updateditem",menuUpdateRoute);
 app.use("/api/admindetails",fetchAdminDetails);
 app.use("/api/updatedstaff",staffUpdateRoute);
 app.use("/api/delete",cancelOrder);//order delete route
+app.use("/api/review",userReviewRoute);
+app.use("/api/getreview",fetchUserReviews);
 
 // /api/auth/register
 app.get("/", (req, res) => {
