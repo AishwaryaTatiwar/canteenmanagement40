@@ -105,4 +105,7 @@
   .quantity-btn:hover {
     background-color: #e68900;
   }
+  .cat-hide{
+    display: none;
+  }
   
