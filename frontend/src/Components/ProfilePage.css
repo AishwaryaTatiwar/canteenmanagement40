@@ -304,5 +304,17 @@ button.cancel-btn:hover {
 strong {
     font-weight: bold;
 }
-
+.star-container{
+        display: flex;
+        gap:10px;
+        justify-content: center;
+        margin-bottom: 15px;
+        cursor: pointer;
+}
+.star-empty {
+    color: #ccc;
+  }
+.star-filled {
+   color: #ffd700;
+}
   

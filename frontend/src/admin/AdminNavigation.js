@@ -8,7 +8,7 @@ import OrderDetails from "./OrderDetails";
 import UsersPage from './UsersPage.js';
 import AdminLogin from "./Adminlogin.js";
 import AdminSignup from './Adminsignup.js';
-
+import UserSupport from './Usersupport.js';
 function AdminNavigation() {
   
   return (
@@ -20,7 +20,7 @@ function AdminNavigation() {
         <Route path="/menu" element={<MenuPage></MenuPage>} />
         <Route path="/users" element={<UsersPage></UsersPage>} />
         <Route path="/staff" element={<StaffPage></StaffPage>} />
-        <Route path="/userquery" element={<div>User queries</div>} />
+        <Route path="/userquery" element={<UserSupport></UserSupport>} />
         <Route path="/" element={<AdminLogin></AdminLogin>} />
         <Route path="/adminsignup" element={<AdminSignup></AdminSignup>} />
       </Routes>

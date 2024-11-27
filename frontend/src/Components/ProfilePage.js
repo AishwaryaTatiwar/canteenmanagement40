@@ -251,7 +251,7 @@ function ProfilePage() {
                                 placeholder="Write your review here..."
                             />
 
-                            <div className="rating-section">
+                            {/* <div className="rating-section">
                                 <label>Rating:</label>
                                 <input
                                     type="number"
@@ -260,7 +260,16 @@ function ProfilePage() {
                                     value={rating}
                                     onChange={(e) => setRating(Number(e.target.value))}
                                 />
-                            </div>
+                            </div> */}
+                            <div className="star-container">
+                            <label>Rating:</label>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                            <span
+                            key={star}
+                            className={rating >= star ? 'star-filled' : 'star-empty'}
+                            onClick={() => setRating(star)}
+                            >&#9733;</span>
+                            ))}</div>
 
                             <div className="popup-buttons">
                                 <button onClick={handleSubmitReview}>Submit</button>

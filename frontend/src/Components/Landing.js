@@ -1,4 +1,4 @@
-import React from 'react'
+import {React,useState} from 'react'
 import circleimg from './Images/circleimg.jpg'
 import './comp.css';
 import { Link } from 'react-router-dom';
@@ -16,8 +16,33 @@ import img1 from './Images/img1.png';
 import testi1 from './Images/testi1.jpg';
 import testi2 from './Images/testi2.jpg';
 import testi3 from './Images/testi3.jpg';
+import axios from 'axios';
 
 export default function Landing() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8283/api/usupport/contact', {
+        name,
+        email,
+        message,
+      });
+      setResponseMessage(response.data.data); // Display success message
+      alert('message sent');
+      // Clear the input fields
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      setResponseMessage('Failed to send message.'); // Handle error
+    }
+  };
   return (
     <div className='body'>
       {/* home */}
@@ -118,7 +143,7 @@ export default function Landing() {
           </div>
         </div>
 
-        <section class="contact" id="contact">
+        {/* <section class="contact" id="contact">
         <div class="title">
             <h2 class="titleText"><span>C</span>ontact Us</h2>
         </div>
@@ -137,7 +162,47 @@ export default function Landing() {
                 <input  type="submit" value="Send"></input>
             </div>
         </div>
-    </section>
+    </section> */}
+    <section className="contact" id="contact">
+        <div className="title">
+          <h2 className="titleText"><span>C</span>ontact Us</h2>
+        </div>
+        <div className="contactForm">
+          <h3>Send Message</h3>
+          <form onSubmit={handleSubmit}>
+            <div className="inputBox">
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="inputBox">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="inputBox">
+              <textarea
+                placeholder="Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </div>
+            <div className="inputBox">
+              <input type="submit" value="Send" />
+            </div>
+          </form>
+          {responseMessage && <p>{responseMessage}</p>} {/* Display response message */}
+        </div>
+      </section>
     <div class="copyright">
         <p>Made with ❤️ by Aishwarya,Priya,Raj,Aryan</p>
     </div>
