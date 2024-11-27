@@ -1,0 +1,125 @@
+.crowd-monitor-containerz {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.headerz {
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #FF5733;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Main Content Layout */
+.main-contentz {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Histogram Styling */
+.histogram-container {
+  flex: 1;
+  height: 400px;
+  max-width: 600px;
+  margin-left: 50px;
+}
+
+.circle-containerz {
+  flex: 1;
+  width: 200px;
+  height: 200px;
+  border: 5px solid green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color 0.3s;
+  margin: 0 auto;
+}
+
+.circle {
+  text-align: center;
+}
+
+.percentage {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+/* Left Section */
+.Left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.human-count {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.crowd-icon {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.crowd-icon img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.crowd-icon span {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 14px;
+  color: #888;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Loading/Error States */
+.loading,
+.error {
+  font-size: 18px;
+  color: #FF5733;
+}
+
+.error {
+  color: red;
+}

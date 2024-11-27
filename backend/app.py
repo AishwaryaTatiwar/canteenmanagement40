@@ -1,63 +1,85 @@
-from flask import Flask, request, jsonify
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
+# import cv2
+# from flask import Flask, jsonify
+# from flask_cors import CORS  # Import CORS
+
+# app = Flask(__name__)
+# CORS(app)  # Enable CORS for all routes
+
+# # Load pre-trained model for human detection (using Haar cascades)
+# human_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+
+# def count_humans(image_path):
+#     # Read the image from the local directory
+#     image = cv2.imread(image_path)
+    
+#     if image is None:
+#         print(f"Error: Unable to load image from {image_path}")
+#         return 0
+    
+#     # Convert the image to grayscale
+#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+#     # Detect humans in the image
+#     humans = human_cascade.detectMultiScale(gray, 1.1, 4)
+    
+#     # Return the number of humans detected
+#     return len(humans)
+
+# # Endpoint to get the latest human count from the local image
+# @app.route('/human_count', methods=['GET'])
+# def get_human_count():
+#     image_path = "./uploads/one.jpeg"  # Specify the image path in your uploads folder
+#     human_count = count_humans(image_path)
+#     return jsonify({'human_count': human_count})
+
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+from flask import Flask, jsonify
 from flask_cors import CORS  # Import CORS
+from ultralytics import YOLO  # Import YOLO from ultralytics
+import cv2
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)  # Enable CORS for all routes
 
-# Mock data for simplicity (could come from a database)
-menu_items = [
-    {"title": "Pizza", "class": "Italian"},
-    {"title": "Pasta", "class": "Italian"},
-    {"title": "Sushi", "class": "Japanese"},
-    {"title": "Ramen", "class": "Japanese"},
-    {"title": "Burger", "class": "Fast Food"},
-    {"title": "Tacos", "class": "Mexican"},
-    {"title": "Salad", "class": "Healthy"},
-]
+# Load the pre-trained YOLOv8 model (download automatically if not present)
+yolo_model = YOLO("yolov8n.pt")  # 'yolov8n.pt' is the smallest model, you can use 'yolov8s.pt' for more accuracy.
 
-# Dummy dataset to calculate similarities
-user_order_history = pd.DataFrame({
-    "userId": [1, 1, 1, 2, 2, 3],
-    "title": ["Pizza", "Pasta", "Burger", "Sushi", "Ramen", "Pizza"],
-})
+def count_humans(image_path):
+    # Load the image
+    results = yolo_model(image_path)  # Run YOLOv8 inference
+    
+    # Filter detections for 'person' class (class ID 0 in COCO dataset)
+    human_detections = [
+        detection for detection in results[0].boxes.data 
+        if int(detection[5]) == 0  # Class ID 0 corresponds to 'person'
+    ]
+    
+    # Return the number of humans detected
+    return len(human_detections)
 
-# Recommendation function using collaborative filtering
-def get_recommendations(user_orders):
-    all_orders = user_order_history.append(user_orders, ignore_index=True)
-    
-    # One-hot encoding to vectorize items
-    order_matrix = pd.get_dummies(all_orders['title'])
-    
-    # Calculate cosine similarity
-    user_sim = cosine_similarity(order_matrix)
-    
-    # Sum the similarities and recommend the most similar food items
-    recommendation_scores = user_sim.sum(axis=1)
-    top_indices = recommendation_scores.argsort()[-3:][::-1]  # Get top 3
-    
-    recommendations = all_orders.iloc[top_indices].title.unique().tolist()
-    return recommendations
+# Endpoint to get the latest human count from the local image
+@app.route('/human_count', methods=['GET'])
+def get_human_count():
+    image_path = "./uploads/people.jpg"  # Specify the image path in your uploads folder
+    try:
+        human_count = count_humans(image_path)
+        return jsonify({'human_count': human_count})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-@app.route("/recommend", methods=["POST"])
-def recommend():
-    user_data = request.json.get("orderData", [])
-    
-    # Convert user's order history to DataFrame
-    if len(user_data) == 0:
-        return jsonify({"message": "No order data provided."}), 400
-
-    user_orders = pd.DataFrame(user_data)
-    
-    # Get recommendations
-    recommendations = get_recommendations(user_orders)
-    
-    if not recommendations:
-        return jsonify({"message": "No recommendations found."}), 404
-    
-    return jsonify(recommendations)
-
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
-
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
