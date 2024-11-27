@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/userModel");
+const axios = require("axios");
 // const UserModel = require("../mod");
 
 // Registration Route User Register with  email, password, mobile
@@ -36,40 +37,50 @@ userRouter.post("/register", async (req, res) => {
 
 // POST Route for Login user using Credentials
 userRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, captchaToken } = req.body; // Add captchaToken from frontend
 
   try {
-    // first Find Email that user enter
+    // Verify the CAPTCHA token with Google
+    const secretKey = "6LczmYsqAAAAAMeRQOt8QVfWao031YdbHp6FtuPQ"; // Replace with your reCAPTCHA secret key
+    const captchaResponse = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify`,
+      null,
+      {
+        params: {
+          secret: secretKey,
+          response: captchaToken,
+        },
+      }
+    );
+
+    // Check CAPTCHA verification result
+    if (!captchaResponse.data.success) {
+      return res.status(400).send({ message: "CAPTCHA verification failed" });
+    }
+
+    // Find the user by email
     const user = await UserModel.find({ email: email });
     if (user[0]) {
-      // then comapire hash or basically decrypt the password
+      // Compare the hashed password
       bcrypt.compare(password, user[0].password, (err, result) => {
-        // is sucesfully matched then send response
         if (result) {
           let obj = user[0];
-          // we dont want to sent hased password to user so overwrite it with "lol"
-          obj.password = "lol";
-          // Response
+          obj.password = "lol"; // Overwrite hashed password before sending response
+
           res.status(200).send({
             message: "Login successful",
-            // token Creation -- key -- somesh
-            token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
-            // owner is use information obj
+            token: jwt.sign({ userID: user[0]._id }, "somesh"), // Generate JWT
             owner: obj,
           });
-          
         } else {
-          // on Wrong Response --
           res.status(400).send({ message: "Invalid password" });
         }
       });
     } else {
-      // if email is not Present
       res.status(400).send({ message: "Invalid email" });
     }
   } catch (err) {
-    // on Error
-    res.status(400).send({ message: err.message });
+    res.status(500).send({ message: "Server error", error: err.message });
   }
 });
 
