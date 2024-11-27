@@ -84,7 +84,7 @@ const Navigation = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/delivery" element={<CrowdMonitor></CrowdMonitor>} />
+          <Route path="/delivery" element={<div></div>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<Signup />} />
