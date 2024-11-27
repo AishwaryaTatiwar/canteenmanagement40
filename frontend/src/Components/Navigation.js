@@ -68,6 +68,7 @@ import PaymentForm from "./PaymentForm";
 import PaymentPage from "./PaymentPage";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import CrowdMonitor from "./CrowdMonitoring.js";
 
 // const stripePromise = loadStripe(
 // "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
@@ -83,7 +84,7 @@ const Navigation = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/delivery" element={<div>Crowd Monitor</div>} />
+          <Route path="/delivery" element={<CrowdMonitor></CrowdMonitor>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<Signup />} />
