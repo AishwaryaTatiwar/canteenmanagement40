@@ -29,6 +29,7 @@ function ProfilePage() {
             fetchUserReviews(userEmail); // Fetch reviews when the "Reviews" tab is clicked
         }
     };
+    
 
     const fetchUserData = async () => {
         try {
@@ -142,7 +143,7 @@ function ProfilePage() {
                     </div>
                     <div className="profile-name">{userName || 'Loading...'}</div>
                 </div>
-                <button className="edit-profile-btn">Edit Profile</button>
+                <button className="edit-profile-btn" >Edit Profile</button>
             </div>
 
             <div className="profile-content">
