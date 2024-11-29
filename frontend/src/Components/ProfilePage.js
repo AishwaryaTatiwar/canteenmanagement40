@@ -13,6 +13,9 @@ function ProfilePage() {
     const [selectedOrder, setSelectedOrder] = useState(null); 
     const [feedbackMessage, setFeedbackMessage] = useState(''); 
     const [rating, setRating] = useState(0); 
+    const [profilePhoto, setProfilePhoto] = useState(null); // State to store the selected photo
+    const [profilePhotoPreview, setProfilePhotoPreview] = useState(null); // For previewing selected photo
+    const [editMode, setEditMode] = useState(false); // Toggle edit mode
 
     const decodeJwt = (token) => {
         if (!token) return null;
@@ -105,6 +108,49 @@ function ProfilePage() {
         setShowReviewPopup(true); // Show the popup when "Give review" is clicked
     };
 
+
+
+    const handlePhotoChange = (e) => {
+        const file = e.target.files[0];
+        setProfilePhoto(file);
+        setProfilePhotoPreview(URL.createObjectURL(file)); // Create preview
+    };
+
+    const handleSubmitProfilePhoto = async (e) => {
+        e.preventDefault();
+        if (!profilePhoto) {
+            alert('Please select a profile photo.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('email', userEmail);
+        formData.append('profilePhoto', profilePhoto);
+
+        try {
+            const response = await axios.post('http://localhost:8283/api/user/updateProfilePhoto', formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.data.success) {
+                alert('Profile photo updated successfully.');
+                setEditMode(false); // Exit edit mode
+                fetchUserData(); // Refresh user data
+            } else {
+                console.error(response.data.message);
+            }
+        } catch (error) {
+            console.error('Error updating profile photo:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
     const handleSubmitReview = async () => {
         // Prepare review data
         const reviewData = {
@@ -134,17 +180,54 @@ function ProfilePage() {
         setRating(0);
     };
 
+    useEffect(() => {
+        const fetchProfilePhoto = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8283/api/photo/getProfilePhoto/${userEmail}`, {
+                    responseType: 'arraybuffer', // Ensure binary data is received
+                });
+
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const imageUrl = URL.createObjectURL(blob);
+                setProfilePhoto(imageUrl);
+            } catch (error) {
+                console.error('Error fetching profile photo:', error);
+            }
+        };
+
+        fetchProfilePhoto();
+    }, [userEmail]);
+
+
     return (
         <div className="profile-page">
             <div className="profile-banner">
                 <div className="profile-details">
-                    <div className="profile-image">
-                        <img src='https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg' alt="Profile" />
-                    </div>
+                <div className="profile-image">
+               <img
+                src={profilePhoto || 'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg'}
+                alt="Profile"
+            />
+        </div>
                     <div className="profile-name">{userName || 'Loading...'}</div>
                 </div>
-                <button className="edit-profile-btn" >Edit Profile</button>
+                <button className="edit-profile-btn" onClick={() => setEditMode(true)}>Edit Profile</button>
             </div>
+            {editMode && (
+                <div className="edit-profile-container">
+                    <h3>Edit Profile</h3>
+                    <form onSubmit={handleSubmitProfilePhoto}>
+                        <div className="form-group">
+                            <label>Update Profile Photo:</label>
+                            <input type="file" accept="image/*" onChange={handlePhotoChange} />
+                        </div>
+                        <button type="submit">Save</button>
+                        <button type="button" onClick={() => setEditMode(false)}>
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+            )}
 
             <div className="profile-content">
                 <div className="profile-info-activity">
