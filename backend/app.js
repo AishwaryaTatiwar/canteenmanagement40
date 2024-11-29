@@ -20,6 +20,7 @@ const userReviewRoute=require('./routes/userReviewRoute');
 const contactForm=require('./routes/contactFormRoute');
 const fetchContacts=require('./routes/fetchContacts');
 const fetchUserReviews=require('./routes/fetchUserReviews');
+const time=require('./routes/timeperiodRoute');
 const stripe = require("stripe")(
   "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
 ); //for stripe
@@ -74,6 +75,7 @@ app.use("/api/review",userReviewRoute);
 app.use("/api/getreview",fetchUserReviews);
 app.use("/api/usupport",contactForm);
 app.use("/api/contactadmin",fetchContacts);
+app.use("/api/time/",time);
 // /api/auth/register
 app.get("/", (req, res) => {
   res.send("hello world! Response from server");
