@@ -118,6 +118,9 @@ useEffect(() => {
           <Link to="/users" className='links'>Users</Link>
           <Link to="/staff" className='links'>Staff</Link>
           <Link to="/userquery" className='links'>User Support/Help</Link>
+          <Link to="/userreview" className="links">
+                Review
+              </Link>
           <button onClick={() => { toggleSidebar(); handleLogout(); }} >Logout</button>
           </>
         )}

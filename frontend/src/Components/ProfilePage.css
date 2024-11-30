@@ -401,3 +401,55 @@ body::after {
 .edit-profile-container + body::after {
     display: block;
 }
+.favorites-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.favorites-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 20px;
+    justify-content: center; /* Center the grid */
+    width: 100%; /* Ensure it uses the full width of its parent */
+    max-width: 1200px; /* Optionally limit the width */
+    margin: 0 auto; /* Center align for better layout */
+}
+
+
+.favorite-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.favorite-item:hover {
+    transform: scale(1.05);
+}
+
+.favorite-details {
+    padding: 15px;
+}
+
+.favorite-details img {
+    width: 100%; /* Ensures the image fills the card width */
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Ensures images fit nicely inside the fixed height */
+    border-bottom: 1px solid #ddd;
+}
+
+.favorite-details h4 {
+    font-size: 18px;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.favorite-details p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+

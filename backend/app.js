@@ -23,8 +23,10 @@ const fetchUserReviews = require("./routes/fetchUserReviews");
 const time = require("./routes/timeperiodRoute");
 const updateProfile = require("./routes/profilePhotoRoute.js");
 const recommendationRoutes = require("./routes/recommendationRoutes");
-
+const favorites=require("./routes/favoritesRoute.js");
 const fetchProfilephoto = require("./routes/getProfilePhoto.js");
+const favoritesRouter = require('./routes/fetchFavorites.js');
+const fetchUserRatingReviews=require("./routes/fetchRatingReview");
 const stripe = require("stripe")(
   "pk_test_51Q4ekwGfQYqZiDkV7tF6Q51ecYxNZG3YtzW2i8Jsol4rD8t6bsKbzgxvVUnW6E5nQr5jCUkoeVGcMAhs0YA90VKi00TSrYGcyg"
 ); //for stripe
@@ -81,8 +83,11 @@ app.use("/api/contactadmin", fetchContacts);
 app.use("/api/time/", time);
 app.use("/api/user", updateProfile);
 app.use("/api/photo", fetchProfilephoto);
+app.use("/api/favorites",favorites);
+app.use('/api/fetchfavorite', favoritesRouter);
 // Use the recommendation routes
 app.use("/api/recommendations", recommendationRoutes);
+app.use("/api/getratingreview", fetchUserRatingReviews);
 
 // /api/auth/register
 app.get("/", (req, res) => {

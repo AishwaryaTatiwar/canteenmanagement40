@@ -16,6 +16,26 @@ function ProfilePage() {
     const [profilePhoto, setProfilePhoto] = useState(null); // State to store the selected photo
     const [profilePhotoPreview, setProfilePhotoPreview] = useState(null); // For previewing selected photo
     const [editMode, setEditMode] = useState(false); // Toggle edit mode
+    const [userFavorites, setUserFavorites] = useState([]); // State for storing favorites
+    const fetchUserFavorites = async (userEmail) => {
+    try {
+        const response = await axios.get(`http://localhost:8283/api/fetchfavorite/${userEmail}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        const data = response.data;
+        if (data.success) {
+            setUserFavorites(data.data); // Save fetched favorites in state
+        } else {
+            setError(data.message);
+        }
+    } catch (error) {
+        console.error('Error fetching user favorites:', error);
+        setError('Failed to fetch user favorites');
+    }
+};
 
     const decodeJwt = (token) => {
         if (!token) return null;
@@ -28,12 +48,14 @@ function ProfilePage() {
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
-        if (tab === 'reviews') {
-            fetchUserReviews(userEmail); // Fetch reviews when the "Reviews" tab is clicked
-        }
+
+    if (tab === 'favourites') {
+        fetchUserFavorites(userEmail); // Fetch favorites for the "favorites" tab
+    } else if (tab === 'reviews') {
+        fetchUserReviews(userEmail); // Fetch reviews for the "reviews" tab
+    }
     };
     
-
     const fetchUserData = async () => {
         try {
             const response = await axios.get(`http://localhost:8283/api/user/${userId}`, {
@@ -100,6 +122,7 @@ function ProfilePage() {
         if (userEmail) {
             fetchUserOrders(userEmail); 
             fetchUserReviews(userEmail);
+            fetchUserFavorites(userEmail);
         }
     }, [userEmail]);
 
@@ -107,8 +130,6 @@ function ProfilePage() {
         setSelectedOrder(order);
         setShowReviewPopup(true); // Show the popup when "Give review" is clicked
     };
-
-
 
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
@@ -197,7 +218,6 @@ function ProfilePage() {
 
         fetchProfilePhoto();
     }, [userEmail]);
-
 
     return (
         <div className="profile-page">
@@ -295,6 +315,28 @@ function ProfilePage() {
                     ))}
                 </div>
             )}
+{activeTab === 'favourites' && (
+    <div className="favorites-container">
+        <h3>Your Favorites</h3>
+        {userFavorites.length > 0 ? (
+            <div className="favorites-list">
+                {userFavorites.map((favorite, index) => (
+                    <div key={index} className="favorite-item">
+                        {favorite.items.map((item, itemIndex) => (
+                            <div key={itemIndex} className="favorite-details">
+                                <img src={item.imageUrl} alt={item.title} />
+                                <h4>{item.title}</h4>
+                                <p>Price: ₹{item.price}</p>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </div>
+        ) : (
+            <p>You have not added any items to favorites.</p>
+        )}
+    </div>
+)}
 
 
 {activeTab === 'reviews' && (
@@ -362,6 +404,7 @@ function ProfilePage() {
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );

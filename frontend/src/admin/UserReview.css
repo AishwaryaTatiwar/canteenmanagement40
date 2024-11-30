@@ -1,0 +1,118 @@
+.headerReview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffa500;
+    color: rgb(247, 243, 243) !important;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+  }
+  
+  .review-dropdown {
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #ffa500;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .review-container {
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: rgb(243, 247, 244);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .review-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 20px;
+    padding: 15px 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #ffa500;
+  }
+  
+  .review-feedback {
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .review-rating {
+    background-color: #ffa500;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  
+  .review-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+  .action-button {
+    margin-left: 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .action-button.edit {
+    background-color: #ffa500;
+    color: white;
+  }
+  
+  .action-button.delete {
+    background-color: #e60000;
+    color: white;
+  }
+  
+  .action-button.edit:hover {
+    background-color: #ff8000;
+  }
+  
+  .action-button.delete:hover {
+    background-color: #b30000;
+  }
+  
+  .no-reviews {
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+    margin: 20px 0;
+  }
+  
+  .filter-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    /* color: #ffa500; */
+  }
+  .cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap ;
+    
+  }

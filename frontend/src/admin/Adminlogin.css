@@ -1,14 +1,15 @@
 .admin-login-container{
    width: 300px;
-   height:380px;
-   padding: 20px;
-   margin-top: 100px;
+   height:320px;
+   padding: 15px;
+   margin-top: 80px;
    margin-left: 450px;
    background-color: orange;
    border-radius: 8px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
    text-align: center; /* Center the content */
    margin-bottom: 100px;
+   font-size: small;
 }
 .admin-login-form{
     color: white;
@@ -23,7 +24,7 @@
   text-align: left;
 }
 .form-group input{
-    width: 95%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
